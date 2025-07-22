@@ -1,0 +1,400 @@
+/* ----- enquity ------ */
+
+.enquity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__left {
+    width: 400px;
+  }
+
+  &__title {
+    font-size: 42px;
+  }
+
+  &__subtitle {
+    font-size: 33px;
+  }
+
+  &__text {
+    margin-top: 33px;
+    font-size: 13px;
+    letter-spacing: 0.13px;
+    line-height: 20px;
+  }
+
+  &__button {
+    margin-top: 21px;
+  }
+
+  &__img {
+    height: 459px;
+  }
+}
+
+/*Домашка блок*/
+.what {
+  width: 100%;
+  background-color: #313236;
+  padding-bottom: 20px;
+
+  &__top-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 121px;
+  }
+
+  &__text_title {
+    font-size: 10px;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  &__text_subTitle {
+    font-size: 40px;
+    color: #ffffff;
+  }
+
+  &__boxed {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 84px;
+    gap: 15px;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 368px;
+  height: 343px;
+  border: 1px solid #ffffff33;
+  border-radius: 8px;
+
+  &__info {
+    padding: 28px 32px 0 26px;
+    text-align: left;
+    font-size: 23px;
+    color: #ffffff;
+  }
+
+  &__bot {
+    color: #ffffff;
+    padding: 26px 27px;
+    font-size: 13px;
+  }
+}
+
+/* ----- wealth ----- */
+
+.wealth {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 100px;
+
+  &__left {
+    width: 400px;
+  }
+
+  &__img {
+    height: 419px;
+  }
+
+  &__text {
+    font-size: 13px;
+    letter-spacing: 0.13px;
+  }
+
+  &__text2 {
+    font-size: 21px;
+    letter-spacing: 0.93px;
+  }
+}
+
+/*----built------*/
+
+.built {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__left {
+    max-width: 400px;
+    width: 100%;
+    height: 450px;
+    margin-top: 50px;
+  }
+
+  &__right {
+    max-width: 400px;
+    width: 100%;
+    height: 500px;
+    margin-top: 100px;
+  }
+
+  &__paragraph {
+    line-height: 1.5;
+    font-size: 13px;
+    font-weight: 400px;
+    width: 370px;
+    height: 60px;
+    left: 500px;
+    cursor: pointer;
+    color: #222;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 20px;
+    height: 20px;
+    cursor: pointer;
+    color: black;
+    margin-bottom: 8px;
+  }
+
+  &__title:hover {
+    text-decoration: underline;
+    text-decoration-color: blue;
+    text-decoration-thickness: 1.5px;
+  }
+
+  &__topic {
+    font-size: 10px;
+    color: #777;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    width: 80px;
+    height: 15px;
+    cursor: pointer;
+  }
+
+  &__subtitle {
+    font-weight: normal;
+    font-size: 38px;
+    line-height: 44px;
+    letter-spacing: 1.7px;
+    color: #555;
+    width: 300px;
+    height: 88px;
+    cursor: pointer;
+  }
+
+  &__topic,
+  &__subtitle {
+    display: block;
+    margin: 0;
+  }
+
+  &__subscribe {
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 12px;
+    color: #777;
+  }
+
+  &__image {
+    width: 28px;
+    height: 14px;
+    cursor: pointer;
+    margin-left: 450px;
+
+    &:hover {
+      border: 1px;
+      color: blue;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 280px;
+    width: 100%;
+  }
+}
+
+.built__subtitle:hover,
+.built__left__text1:hover,
+.built__subscribe:hover {
+  text-decoration: underline;
+  text-decoration-color: blue;
+  text-decoration-thickness: 1.5px;
+}
+
+/*----Mishael-----*/
+
+.txt__color {
+  color: white;
+}
+
+.mishael {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #73726c;
+  min-height: 592px;
+}
+
+.mishael__left {
+  width: 400px;
+  margin-left: 100px;
+}
+
+.mishael__img {
+  max-height: 238px;
+}
+
+.mishael__right {
+  width: 400px;
+}
+
+.mishael__title {
+  font-size: 13px;
+}
+
+.mishael__subtitle {
+  font-size: 90px;
+  margin-top: 60px;
+}
+
+.mishael__text {
+  font-size: 17px;
+  margin-top: 50px;
+}
+
+.flat__btn {
+  padding: 4px 33px;
+  border-radius: 10px;
+  background-color: #292a2d33;
+  border: 1px solid transparent;
+}
+
+.flat__btn:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.flat__btn:active {
+  background-color: #eeece3;
+  transition: 0.15s;
+}
+
+/* раздел WORK */
+
+.work {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 200px;
+  margin-left: 84px;
+}
+
+.work__left {
+  width: 400px;
+}
+
+.work__title {
+  color: #73726c;
+  font-size: 12px;
+  line-height: 25px;
+}
+.work__text {
+  font-size: 23px;
+}
+
+.work__botton {
+  margin-top: 23px;
+  background-color: #292a2d;
+  color: #eeece3;
+  border-radius: 20px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.work__botton:hover {
+  transform: scale(1.05);
+}
+
+.work__botton:active {
+  border: 1px solid transparent;
+  color: #292a2d;
+  background-color: #eeece3;
+}
+
+.work__img {
+  height: 485px;
+  width: 467px;
+}
+
+.work__div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.work__p {
+  margin-top: 40px;
+  padding-right: 150px;
+}
+
+/* ------- options ---------- */
+
+.options {
+  margin-top: 66px;
+  margin-bottom: 133px;
+
+  &__title {
+    margin-bottom: 34px;
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    color: #463f3c;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  &__text {
+    margin: 21px 17px 0 25px;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 27.5px;
+  }
+
+  &__company {
+    background-color: #879ead;
+  }
+  &__manage {
+    background-color: #1a5866;
+  }
+  &__exercise {
+    background-color: #776c62;
+  }
+  &__exercise p {
+    font-size: 25px;
+  }
+  &__start {
+    background-color: #99958e;
+  }
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 364px;
+    width: 248px;
+  }
+}

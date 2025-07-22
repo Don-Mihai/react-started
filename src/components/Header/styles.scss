@@ -1,0 +1,38 @@
+.header {
+  margin-top: 40px;
+  padding: 20px 0;
+  top: 0;
+  position: sticky;
+  background: #fff;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 54px;
+  }
+
+  &__text {
+    margin-right: 34px;
+  }
+
+  &__button {
+    margin-right: 25px;
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 38px;
+
+  &__link {
+    font-size: 13px;
+    text-decoration: none;
+    color: #292a2d;
+  }
+}

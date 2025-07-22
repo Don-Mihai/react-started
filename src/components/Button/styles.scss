@@ -1,0 +1,24 @@
+.button {
+  padding: 14px 26px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  color: #eeece3;
+  background-color: #292a2d;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: 0.15s;
+  }
+
+  &:active {
+    border: 1px solid #292a2d;
+    color: #292a2d;
+    background-color: #eeece3;
+    transition: 0.15s;
+  }
+  &.secondary {
+    color: #000;
+    background-color: transparent;
+  }
+}
