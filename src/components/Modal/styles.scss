@@ -33,48 +33,6 @@
     align-items: center;
     animation: popup-zoom-in 0.3s;
   }
-
-  &__input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 18px;
-    font-size: 16px;
-    transition: border-color 0.2s;
-    outline: none;
-    background: #fafbfc;
-    &:focus {
-      border-color: #7b61ff;
-      background: #fff;
-    }
-  }
-
-  &__close {
-    margin-top: 10px;
-    padding: 10px 24px;
-    background: linear-gradient(90deg, #7b61ff 0%, #5a9cff 100%);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(123, 97, 255, 0.1);
-    transition: background 0.2s, transform 0.1s;
-    &:hover {
-      background: linear-gradient(90deg, #5a9cff 0%, #7b61ff 100%);
-      transform: translateY(-2px) scale(1.03);
-    }
-  }
-
-  h3 {
-    margin-bottom: 24px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #2d2d2d;
-    letter-spacing: 0.5px;
-  }
 }
 
 @keyframes popup-zoom-in {

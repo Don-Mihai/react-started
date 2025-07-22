@@ -1,6 +1,7 @@
 import './styles.scss';
-import Header from '../../components/Header/Header';
+import Header from '../../modules/Header/Header';
 import Button from '../../components/Button/Button';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -80,7 +81,9 @@ const Home = () => {
           <p className="wealth__text2">Grow your money through managed portfolios and exclusive access to private investments.</p>
           <nav className="nav">
             <Button title="Get Started" className="wealth__button" />
-            <p className="wealth__learn">Learn more</p>
+            <Link to="/wealth">
+              <Button title="Learn more" isSecondary className="wealth__learn" />
+            </Link>
           </nav>
         </div>
         <div className="wealth__right">

@@ -1,0 +1,411 @@
+/* ----- About Hero Section ----- */
+
+.about-hero {
+  padding: 80px 0;
+  text-align: center;
+
+  &__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 42px;
+    color: #463f3c;
+    margin-bottom: 20px;
+    font-weight: normal;
+  }
+
+  &__subtitle {
+    font-size: 33px;
+    color: #555;
+    margin-bottom: 30px;
+    font-weight: normal;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 24px;
+    color: #222;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+/* ----- Mission Section ----- */
+
+.mission {
+  background-color: #313236;
+  padding: 100px 0;
+  color: #ffffff;
+
+  &__content {
+    text-align: center;
+  }
+
+  &__topic {
+    font-size: 10px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  &__title {
+    font-size: 40px;
+    color: #ffffff;
+    margin-bottom: 60px;
+    font-weight: normal;
+  }
+
+  &__grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+    padding: 30px;
+    border: 1px solid #ffffff33;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  &__item-title {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: normal;
+  }
+
+  &__item-text {
+    font-size: 13px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+}
+
+/* ----- Stats Section ----- */
+
+.stats {
+  padding: 100px 0;
+  background-color: #73726c;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+
+  &__item {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+  }
+
+  &__number {
+    font-size: 90px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: normal;
+  }
+
+  &__description {
+    font-size: 17px;
+    color: #ffffff;
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 300px;
+    color: #ffffff;
+  }
+
+  &__title {
+    font-size: 38px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-weight: normal;
+    line-height: 44px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+}
+
+/* ----- Services Section ----- */
+
+.services {
+  padding: 100px 0;
+  background-color: #ffffff;
+
+  &__title {
+    font-size: 40px;
+    color: #463f3c;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: normal;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  &__item {
+    padding: 40px 30px;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:nth-child(1) {
+      background-color: #879ead;
+      color: #ffffff;
+    }
+
+    &:nth-child(2) {
+      background-color: #1a5866;
+      color: #ffffff;
+    }
+
+    &:nth-child(3) {
+      background-color: #776c62;
+      color: #ffffff;
+    }
+
+    &:nth-child(4) {
+      background-color: #99958e;
+      color: #ffffff;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__item-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: normal;
+  }
+
+  &__item-text {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+/* ----- Testimonials Section ----- */
+
+.testimonials {
+  background-color: #313236;
+  padding: 100px 0;
+  color: #ffffff;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  &__tag {
+    font-size: 10px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  &__title {
+    font-size: 40px;
+    color: #ffffff;
+    font-weight: normal;
+  }
+
+  &__grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+}
+
+.testimonial {
+  flex: 1;
+  min-width: 300px;
+  padding: 30px;
+  border: 1px solid #ffffff33;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &__quote {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  &__author {
+    border-top: 1px solid #ffffff33;
+    padding-top: 20px;
+  }
+
+  &__name {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &__company {
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.8;
+  }
+}
+
+/* ----- CTA Section ----- */
+
+.cta {
+  padding: 100px 0;
+  background-color: #ffffff;
+  text-align: center;
+
+  &__content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 38px;
+    color: #463f3c;
+    margin-bottom: 20px;
+    font-weight: normal;
+    line-height: 44px;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 24px;
+    color: #222;
+    margin-bottom: 40px;
+  }
+
+  &__button {
+    background-color: #292a2d;
+    color: #eeece3;
+    border-radius: 20px;
+    padding: 14px 30px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #eeece3;
+      color: #292a2d;
+      border: 1px solid #292a2d;
+    }
+  }
+}
+
+/* ----- Responsive Design ----- */
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 60px 0;
+
+    &__title {
+      font-size: 32px;
+    }
+
+    &__subtitle {
+      font-size: 24px;
+    }
+  }
+
+  .mission {
+    padding: 80px 0;
+
+    &__grid {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    &__item {
+      min-width: auto;
+    }
+  }
+
+  .stats {
+    padding: 80px 0;
+
+    &__content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__number {
+      font-size: 60px;
+    }
+
+    &__title {
+      font-size: 28px;
+    }
+  }
+
+  .services {
+    padding: 80px 0;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .testimonials {
+    padding: 80px 0;
+
+    &__grid {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  .cta {
+    padding: 80px 0;
+
+    &__title {
+      font-size: 28px;
+    }
+  }
+}
