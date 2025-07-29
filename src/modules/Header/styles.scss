@@ -18,12 +18,10 @@
     gap: 54px;
   }
 
-  &__text {
-    margin-right: 34px;
-  }
-
-  &__button {
-    margin-right: 25px;
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 }
 

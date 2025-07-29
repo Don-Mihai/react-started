@@ -2,6 +2,8 @@ import './styles.scss';
 import { useState } from 'react';
 import Modal from '../../components/Modal/Modal';
 import axios from 'axios';
+import { API_URL } from '../../services/api';
+import { LOCAL_STORAGE_USER } from '../../services/utils';
 
 const AuthPopUp = ({ toggleModal, isModalOpen }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -19,8 +21,16 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
     setAuthValues({ ...authValues, [key]: value });
   };
 
-  const handleAuth = () => {
-    alert(authValues.email + ' ' + authValues.password);
+  const handleAuth = async () => {
+    const users = (await axios.get(`${API_URL}/users?email=${authValues.email}&password=${authValues.password}`)).data;
+    const user = users[0];
+
+    if (user?.id) {
+      localStorage.setItem(LOCAL_STORAGE_USER, user.id);
+      toggleModal();
+    } else {
+      alert('Неверный email или пароль');
+    }
   };
 
   const [registerValues, setRegisterValues] = useState({ name: '', email: '', password: '' });
@@ -33,7 +43,7 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
   };
 
   const handleRegister = async () => {
-    await axios.post('http://localhost:8000/users', registerValues);
+    await axios.post(`${API_URL}/users`, registerValues);
     clearValues(registerValues);
   };
 
