@@ -4,7 +4,7 @@
     padding: 12px 14px;
     border: 1.5px solid #e0e0e0;
     border-radius: 8px;
-    margin-bottom: 18px;
+    margin-top: 16px;
     font-size: 16px;
     transition: border-color 0.2s;
     outline: none;
@@ -28,5 +28,10 @@
     font-weight: 700;
     color: #2d2d2d;
     letter-spacing: 0.5px;
+  }
+
+  &__error {
+    color: red;
+    font-size: 14px;
   }
 }

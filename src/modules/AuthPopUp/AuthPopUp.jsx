@@ -9,6 +9,7 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
   const [isLogin, setIsLogin] = useState(true);
 
   const [authValues, setAuthValues] = useState({ email: '', password: '' });
+  const [authErrors, setAuthErrors] = useState({ email: '', password: '' });
 
   const toggleLogin = () => {
     setIsLogin(!isLogin);
@@ -19,9 +20,14 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
     const value = event.target.value;
 
     setAuthValues({ ...authValues, [key]: value });
+    setAuthErrors({ ...authErrors, [key]: '' });
   };
 
   const handleAuth = async () => {
+    if (authErrors.email || authErrors.password) {
+      return;
+    }
+
     const users = (await axios.get(`${API_URL}/users?email=${authValues.email}&password=${authValues.password}`)).data;
     const user = users[0];
 
@@ -44,14 +50,32 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
 
   const handleRegister = async () => {
     await axios.post(`${API_URL}/users`, registerValues);
-    clearValues(registerValues);
   };
 
-  //todo: доделать очистку
-  const clearValues = (obj) => {
-    Object.keys(obj).forEach((key) => {
-      obj[key] = '';
-    });
+  const validateEmail = () => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!authValues.email) {
+      setAuthErrors({ ...authErrors, email: 'Обязательное поле' });
+    }
+    if (!re.test(authValues.email)) {
+      setAuthErrors({ ...authErrors, email: 'Неверный email' });
+    }
+    if (authValues.email.length > 255) {
+      setAuthErrors({ ...authErrors, email: 'Максимум 255 символов' });
+    }
+  };
+
+  const validatePassword = () => {
+    if (!authValues.password) {
+      setAuthErrors({ ...authErrors, password: 'Обязательное поле' });
+    }
+    if (authValues.password.length < 8) {
+      setAuthErrors({ ...authErrors, password: 'Минимум 8 символов' });
+    }
+    if (authValues.password.length > 255) {
+      setAuthErrors({ ...authErrors, password: 'Максимум 255 символов' });
+    }
   };
 
   return (
@@ -59,8 +83,26 @@ const AuthPopUp = ({ toggleModal, isModalOpen }) => {
       {isLogin ? (
         <>
           <h3>Вход</h3>
-          <input onChange={onChange} value={authValues.email} name="email" type="text" placeholder="Email" className="auth-popup__input" />
-          <input onChange={onChange} value={authValues.password} name="password" type="text" placeholder="Password" className="auth-popup__input" />
+          <input
+            onChange={onChange}
+            onBlur={validateEmail}
+            value={authValues.email}
+            name="email"
+            type="text"
+            placeholder="Email"
+            className="auth-popup__input"
+          />
+          {authErrors.email && <div className="auth-popup__error">{authErrors.email}</div>}
+          <input
+            onChange={onChange}
+            onBlur={validatePassword}
+            value={authValues.password}
+            name="password"
+            type="text"
+            placeholder="Password"
+            className="auth-popup__input"
+          />
+          {authErrors.password && <div className="auth-popup__error">{authErrors.password}</div>}
           <div className="auth-popup__link" onClick={toggleLogin}>
             Нет аккаунта? Зарегистрироваться
           </div>

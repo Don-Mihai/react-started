@@ -2,7 +2,7 @@ import './styles.scss';
 import Button from '../../components/Button/Button';
 import AuthPopUp from '../AuthPopUp/AuthPopUp';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
 import Avatar from '../../components/Avatar/Avatar';
 import { LOCAL_STORAGE_USER } from '../../services/utils';
@@ -13,6 +13,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUser();
@@ -36,6 +37,10 @@ const Header = () => {
 
   const toggleFeedback = () => {
     setIsFeedbackOpen(!isFeedbackOpen);
+  };
+
+  const handleAvatarClick = () => {
+    navigate('/profile');
   };
 
   return (
@@ -64,7 +69,11 @@ const Header = () => {
           </nav>
         </div>
         <div className="header__right">
-          {user?.id ? <Avatar name={user.name} /> : <Button onClick={toggleModal} title="Log in" className="header__text" isSecondary />}
+          {user?.id ? (
+            <Avatar name={user.name} onClick={handleAvatarClick} />
+          ) : (
+            <Button onClick={toggleModal} title="Log in" className="header__text" isSecondary />
+          )}
 
           <Button onClick={toggleFeedback} title="Get started" className="header__button" />
         </div>

@@ -1,6 +1,6 @@
 import './styles.scss';
 
-const Avatar = ({ name, image, size = 'medium' }) => {
+const Avatar = ({ name, image, size = 'medium', onClick }) => {
   // Функция для получения инициалов из имени
   const getInitials = (fullName) => {
     if (!fullName) return '?';
@@ -41,7 +41,7 @@ const Avatar = ({ name, image, size = 'medium' }) => {
   };
 
   return (
-    <div className={`avatar avatar--${size}`}>
+    <div className={`avatar avatar--${size}`} onClick={onClick}>
       {image ? (
         <img
           src={image}
