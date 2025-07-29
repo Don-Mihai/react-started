@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "0308",
+      "name": "mihai",
+      "email": "mihai807@mail.ru",
+      "password": "12345678"
+    },
+    {
+      "id": "add9",
+      "name": "mihai",
+      "email": "mihai807@mail.ru",
+      "password": "12345678"
+    },
+    {
+      "id": "b4ed",
+      "name": "mihai",
+      "email": "mihai807@mail.ru",
+      "password": "12345678"
+    },
+    {
+      "id": "4b0c",
+      "name": "qq",
+      "email": "qqq",
+      "password": "qqq"
+    }
+  ]
+}
