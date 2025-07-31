@@ -82,7 +82,7 @@ const Header = () => {
       <Modal open={isFeedbackOpen} toggleModal={toggleFeedback}>
         <div>
           <h2>Feedback</h2>
-          <p>Please leave your feedback here</p>
+          <p>Please leave your feedback here.</p>
         </div>
       </Modal>
 
