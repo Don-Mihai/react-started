@@ -30,5 +30,27 @@
       "email": "aa",
       "password": "aa"
     }
+  ],
+  "services": [
+    {
+      "id": "1",
+      "name": "Equity Planning",
+      "description": "Strategic advice on when and how to exercise your stock options, with personalized recommendations based on your financial goals."
+    },
+    {
+      "id": "2",
+      "name": "Stock Option Financing",
+      "description": "Access to capital to exercise your options without using your own cash, allowing you to participate in your company's upside."
+    },
+    {
+      "id": "3",
+      "name": "Wealth Management",
+      "description": "Comprehensive portfolio management and exclusive access to private investments to help grow your wealth beyond your equity holdings."
+    },
+    {
+      "id": "4",
+      "name": "Tax Planning",
+      "description": "Expert guidance on the tax implications of your equity decisions, including AMT calculations and tax-efficient strategies."
+    }
   ]
 }

@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import Header from '../../modules/Header/Header';
 import Button from '../../components/Button/Button';
+import axios from 'axios';
+import { API_URL } from '../../services/api';
 
 const About = () => {
+  const [services, setServices] = useState([]);
+
+  const fetchServices = async () => {
+    const services = (await axios.get(`${API_URL}/services`)).data
+    setServices(services);
+  };
+
+  useEffect(() => {
+    fetchServices();
+  }, [])
+
   return (
     <div>
       <Header />
@@ -65,30 +78,14 @@ const About = () => {
         <div className="container">
           <h2 className="services__title">What We Do</h2>
           <div className="services__grid">
-            <div className="services__item">
-              <h3 className="services__item-title">Equity Planning</h3>
-              <p className="services__item-text">
-                Strategic advice on when and how to exercise your stock options, with personalized recommendations based on your financial goals.
-              </p>
-            </div>
-            <div className="services__item">
-              <h3 className="services__item-title">Stock Option Financing</h3>
-              <p className="services__item-text">
-                Access to capital to exercise your options without using your own cash, allowing you to participate in your company's upside.
-              </p>
-            </div>
-            <div className="services__item">
-              <h3 className="services__item-title">Wealth Management</h3>
-              <p className="services__item-text">
-                Comprehensive portfolio management and exclusive access to private investments to help grow your wealth beyond your equity holdings.
-              </p>
-            </div>
-            <div className="services__item">
-              <h3 className="services__item-title">Tax Planning</h3>
-              <p className="services__item-text">
-                Expert guidance on the tax implications of your equity decisions, including AMT calculations and tax-efficient strategies.
-              </p>
-            </div>
+            {
+              services.map((service) => (
+                <div className="services__item" key={service.id}>
+                  <h3 className="services__item-title">{service.name}</h3>
+                  <p className="services__item-text">{service.description}</p>
+                </div>  
+              ))
+            }
           </div>
         </div>
       </section>
