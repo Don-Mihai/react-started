@@ -1,8 +1,13 @@
-import './styles.scss';
+import "./styles.scss";
 
-const Button = ({ title, className, isSecondary, ...rest }) => {
+const Button = ({ title, className, isSecondary, isDanger, ...rest }) => {
   return (
-    <button className={`button ${className} ${isSecondary ? 'secondary' : ''} `} {...rest}>
+    <button
+      className={`button ${className} ${isSecondary ? "secondary" : ""} ${
+        isDanger ? "danger" : ""
+      }`}
+      {...rest}
+    >
       {title}
     </button>
   );

@@ -4,7 +4,8 @@ import { API_URL } from "../../../services/api";
 
 const Register = ({ toggleModal, toggleLogin }) => {
   const [registerValues, setRegisterValues] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -24,10 +25,10 @@ const Register = ({ toggleModal, toggleLogin }) => {
       <h3>Регистрация</h3>
       <input
         onChange={onChangeRegister}
-        value={registerValues.name}
-        name="name"
+        value={registerValues.firstName}
+        name="firstName"
         type="text"
-        placeholder="Name"
+        placeholder="Имя"
         className="auth-popup__input"
       />
       <input

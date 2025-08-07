@@ -21,4 +21,21 @@
     color: #000;
     background-color: transparent;
   }
+
+  &.danger {
+    color: white;
+    background-color: #e53e3e;
+    border-color: #e53e3e;
+
+    &:hover {
+      background-color: #c53030;
+      border-color: #c53030;
+    }
+
+    &:active {
+      color: white;
+      background-color: #a52a2a;
+      border-color: #a52a2a;
+    }
+  }
 }

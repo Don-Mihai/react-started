@@ -1,34 +1,28 @@
 {
   "users": [
     {
-      "id": "0308",
-      "name": "mihai",
+      "id": "2",
+      "firstName": "mihai",
+      "lastName": "shvartzneger",
+      "avatar": "https://i.pinimg.com/736x/0d/56/0e/0d560e10000000000000000000000000.jpg",
       "email": "mihai807@mail.ru",
-      "password": "12345678"
+      "password": "55555555",
+      "status": "active",
+      "investments": 12,
+      "portfolio": 45230,
+      "profitability": 18.5,
+      "phone": "+796393299889",
+      "birthday": "1999-11-19",
+      "updatedAtPassword": "2025-08-07T18:23:15.926Z"
     },
     {
-      "id": "add9",
-      "name": "mihai",
-      "email": "mihai807@mail.ru",
-      "password": "12345678"
-    },
-    {
-      "id": "b4ed",
-      "name": "mihai",
-      "email": "mihai807@mail.ru",
-      "password": "12345678"
-    },
-    {
-      "id": "4b0c",
-      "name": "qq",
-      "email": "qqq",
-      "password": "qqq"
-    },
-    {
-      "id": "bd88",
-      "name": "aa",
-      "email": "aa",
-      "password": "aa"
+      "id": "3",
+      "firstName": "alex",
+      "lastName": "smith",
+      "avatar": "https://i.pinimg.com/736x/0d/56/0e/0d560e10000000000000000000000000.jpg",
+      "email": "alex@mail.ru",
+      "password": "12345678",
+      "status": "unactive"
     }
   ],
   "services": [
