@@ -46,5 +46,82 @@
       "name": "Tax Planning",
       "description": "Expert guidance on the tax implications of your equity decisions, including AMT calculations and tax-efficient strategies."
     }
+  ],
+  "portfolios": [
+    {
+      "id": 1,
+      "name": "Консервативный портфель",
+      "description": "Низкий риск, стабильный доход",
+      "totalValue": 50000,
+      "currency": "USD",
+      "riskLevel": "Низкий",
+      "createdAt": "2024-01-15",
+      "assets": [
+        {
+          "id": 1,
+          "name": "Государственные облигации",
+          "percentage": 40,
+          "value": 20000
+        },
+        {
+          "id": 2,
+          "name": "Корпоративные облигации",
+          "percentage": 30,
+          "value": 15000
+        },
+        {
+          "id": 3,
+          "name": "Денежные фонды",
+          "percentage": 30,
+          "value": 15000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Агрессивный портфель",
+      "description": "Высокий риск, высокий потенциал роста",
+      "totalValue": 75000,
+      "currency": "USD",
+      "riskLevel": "Высокий",
+      "createdAt": "2024-02-20",
+      "assets": [
+        {
+          "id": 4,
+          "name": "Акции роста",
+          "percentage": 50,
+          "value": 37500
+        },
+        {
+          "id": 5,
+          "name": "Криптовалюты",
+          "percentage": 30,
+          "value": 22500
+        },
+        {
+          "id": 6,
+          "name": "Индексные фонды",
+          "percentage": 20,
+          "value": 15000
+        }
+      ]
+    },
+    {
+      "name": "Медведи",
+      "description": "Глупенькие и бедные",
+      "totalValue": 5000,
+      "currency": "RUB",
+      "riskLevel": "Высокий",
+      "id": "d363"
+    },
+    {
+      "name": "qq",
+      "description": "qqwerwerwer",
+      "totalValue": 123,
+      "currency": "USD",
+      "riskLevel": "Средний",
+      "createdAt": "2025-08-12",
+      "id": "fc5f"
+    }
   ]
 }

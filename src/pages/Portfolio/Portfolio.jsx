@@ -1,39 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.scss';
 import Header from '../../modules/Header/Header';
 import Button from '../../components/Button/Button';
+import Modal from '../../components/Modal/Modal';
+import PortfolioItem from '../../modules/Portfolio/Portfolio';
+import axios from 'axios';
 
 const Portfolio = () => {
-  const [portfolios, setPortfolios] = useState([
-    {
-      id: 1,
-      name: 'Консервативный портфель',
-      description: 'Низкий риск, стабильный доход',
-      totalValue: 50000,
-      currency: 'USD',
-      riskLevel: 'Низкий',
-      createdAt: '2024-01-15',
-      assets: [
-        { id: 1, name: 'Государственные облигации', percentage: 40, value: 20000 },
-        { id: 2, name: 'Корпоративные облигации', percentage: 30, value: 15000 },
-        { id: 3, name: 'Денежные фонды', percentage: 30, value: 15000 },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Агрессивный портфель',
-      description: 'Высокий риск, высокий потенциал роста',
-      totalValue: 75000,
-      currency: 'USD',
-      riskLevel: 'Высокий',
-      createdAt: '2024-02-20',
-      assets: [
-        { id: 4, name: 'Акции роста', percentage: 50, value: 37500 },
-        { id: 5, name: 'Криптовалюты', percentage: 30, value: 22500 },
-        { id: 6, name: 'Индексные фонды', percentage: 20, value: 15000 },
-      ],
-    },
-  ]);
+  const [portfolios, setPortfolios] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPortfolio, setEditingPortfolio] = useState(null);
@@ -44,6 +18,16 @@ const Portfolio = () => {
     currency: 'USD',
     riskLevel: 'Средний',
   });
+
+  const fetchPortfolios = async () => {
+    const fetchedPortfolios = (await axios.get('http://localhost:8000/portfolios')).data;
+
+    setPortfolios(fetchedPortfolios);
+  };
+
+  useEffect(() => {
+    fetchPortfolios();
+  }, []);
 
   const openModal = (portfolio = null) => {
     if (portfolio) {
@@ -87,43 +71,51 @@ const Portfolio = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (editingPortfolio) {
       // Обновление существующего портфеля
-      setPortfolios(portfolios.map((p) => (p.id === editingPortfolio.id ? { ...p, ...formData, totalValue: parseFloat(formData.totalValue) } : p)));
+      const updatedPortfolio = {
+        ...formData,
+        createdAt: editingPortfolio.createdAt,
+        totalValue: parseFloat(formData.totalValue),
+      };
+
+      try {
+        const updatedPortfolioResponse = (await axios.put(`http://localhost:8000/portfolios/${editingPortfolio.id}`, updatedPortfolio)).data;
+        setPortfolios(portfolios.map((p) => (p.id === editingPortfolio.id ? updatedPortfolioResponse : p)));
+      } catch (error) {
+        console.error('Ошибка при обновлении портфеля:', error);
+      }
     } else {
       // Создание нового портфеля
       const newPortfolio = {
-        id: Date.now(),
         ...formData,
         totalValue: parseFloat(formData.totalValue),
         createdAt: new Date().toISOString().split('T')[0],
         assets: [],
       };
-      setPortfolios([...portfolios, newPortfolio]);
+
+      try {
+        const addedPortfolio = (await axios.post('http://localhost:8000/portfolios', newPortfolio)).data;
+        setPortfolios([...portfolios, addedPortfolio]);
+      } catch (error) {
+        console.error('Ошибка при добавлении портфеля:', error);
+      }
     }
 
     closeModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Вы уверены, что хотите удалить этот портфель?')) {
-      setPortfolios(portfolios.filter((p) => p.id !== id));
-    }
-  };
-
-  const getRiskLevelColor = (riskLevel) => {
-    switch (riskLevel) {
-      case 'Низкий':
-        return 'low-risk';
-      case 'Средний':
-        return 'medium-risk';
-      case 'Высокий':
-        return 'high-risk';
-      default:
-        return 'medium-risk';
+      try {
+        await axios.delete(`http://localhost:8000/portfolios/${id}`);
+        setPortfolios(portfolios.filter((p) => p.id !== id));
+      } catch (error) {
+        console.error('Ошибка при удалении портфеля:', error);
+      }
     }
   };
 
@@ -157,46 +149,7 @@ const Portfolio = () => {
 
         <div className='portfolios-grid'>
           {portfolios.map((portfolio) => (
-            <div key={portfolio.id} className='portfolio-card'>
-              <div className='portfolio-card__header'>
-                <div className='portfolio-card__title-section'>
-                  <h3 className='portfolio-card__title'>{portfolio.name}</h3>
-                  <span className={`portfolio-card__risk ${getRiskLevelColor(portfolio.riskLevel)}`}>{portfolio.riskLevel}</span>
-                </div>
-                <div className='portfolio-card__actions'>
-                  <Button title='Редактировать' className='portfolio-card__edit-btn' isSecondary onClick={() => openModal(portfolio)} />
-                  <Button title='Удалить' className='portfolio-card__delete-btn' isDanger onClick={() => handleDelete(portfolio.id)} />
-                </div>
-              </div>
-
-              <p className='portfolio-card__description'>{portfolio.description}</p>
-
-              <div className='portfolio-card__value'>
-                <span className='portfolio-card__amount'>${portfolio.totalValue.toLocaleString()}</span>
-                <span className='portfolio-card__currency'>{portfolio.currency}</span>
-              </div>
-
-              <div className='portfolio-card__assets'>
-                <h4>Активы:</h4>
-                {portfolio.assets.length > 0 ? (
-                  <div className='assets-list'>
-                    {portfolio.assets.map((asset) => (
-                      <div key={asset.id} className='asset-item'>
-                        <span className='asset-name'>{asset.name}</span>
-                        <span className='asset-percentage'>{asset.percentage}%</span>
-                        <span className='asset-value'>${asset.value.toLocaleString()}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className='no-assets'>Активы не добавлены</p>
-                )}
-              </div>
-
-              <div className='portfolio-card__footer'>
-                <span className='portfolio-card__date'>Создан: {new Date(portfolio.createdAt).toLocaleDateString()}</span>
-              </div>
-            </div>
+            <PortfolioItem key={portfolio.id} portfolio={portfolio} openModal={openModal} handleDelete={handleDelete} />
           ))}
         </div>
 
@@ -211,77 +164,72 @@ const Portfolio = () => {
       </div>
 
       {/* Модальное окно для создания/редактирования */}
-      {isModalOpen && (
-        <div className='modal-overlay' onClick={closeModal}>
-          <div className='modal' onClick={(e) => e.stopPropagation()}>
-            <div className='modal__header'>
-              <h2>{editingPortfolio ? 'Редактировать портфель' : 'Создать новый портфель'}</h2>
-              <button className='modal__close' onClick={closeModal}>
-                ×
-              </button>
+      <Modal open={isModalOpen} toggleModal={closeModal}>
+        <>
+          <div className='modal__header'>
+            <h2>{editingPortfolio ? 'Редактировать портфель' : 'Создать новый портфель'}</h2>
+          </div>
+
+          <form className='modal__form' onSubmit={handleSubmit}>
+            <div className='form-group'>
+              <label htmlFor='name'>Название портфеля</label>
+              <input type='text' id='name' name='name' value={formData.name} onChange={handleInputChange} placeholder='Введите название портфеля' required />
             </div>
 
-            <form className='modal__form' onSubmit={handleSubmit}>
-              <div className='form-group'>
-                <label htmlFor='name'>Название портфеля</label>
-                <input type='text' id='name' name='name' value={formData.name} onChange={handleInputChange} placeholder='Введите название портфеля' required />
-              </div>
+            <div className='form-group'>
+              <label htmlFor='description'>Описание</label>
+              <textarea
+                id='description'
+                name='description'
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder='Опишите стратегию портфеля'
+                rows='3'
+              />
+            </div>
 
+            <div className='form-row'>
               <div className='form-group'>
-                <label htmlFor='description'>Описание</label>
-                <textarea
-                  id='description'
-                  name='description'
-                  value={formData.description}
+                <label htmlFor='totalValue'>Общая стоимость</label>
+                <input
+                  type='number'
+                  id='totalValue'
+                  name='totalValue'
+                  value={formData.totalValue}
                   onChange={handleInputChange}
-                  placeholder='Опишите стратегию портфеля'
-                  rows='3'
+                  placeholder='0'
+                  min='0'
+                  step='0.01'
+                  required
                 />
               </div>
 
-              <div className='form-row'>
-                <div className='form-group'>
-                  <label htmlFor='totalValue'>Общая стоимость</label>
-                  <input
-                    type='number'
-                    id='totalValue'
-                    name='totalValue'
-                    value={formData.totalValue}
-                    onChange={handleInputChange}
-                    placeholder='0'
-                    min='0'
-                    step='0.01'
-                    required
-                  />
-                </div>
-
-                <div className='form-group'>
-                  <label htmlFor='currency'>Валюта</label>
-                  <select id='currency' name='currency' value={formData.currency} onChange={handleInputChange}>
-                    <option value='USD'>USD</option>
-                    <option value='EUR'>EUR</option>
-                    <option value='RUB'>RUB</option>
-                  </select>
-                </div>
-              </div>
-
               <div className='form-group'>
-                <label htmlFor='riskLevel'>Уровень риска</label>
-                <select id='riskLevel' name='riskLevel' value={formData.riskLevel} onChange={handleInputChange}>
-                  <option value='Низкий'>Низкий</option>
-                  <option value='Средний'>Средний</option>
-                  <option value='Высокий'>Высокий</option>
+                <label htmlFor='currency'>Валюта</label>
+                <select id='currency' name='currency' value={formData.currency} onChange={handleInputChange}>
+                  <option value='USD'>USD</option>
+                  <option value='EUR'>EUR</option>
+                  <option value='RUB'>RUB</option>
                 </select>
               </div>
+            </div>
 
-              <div className='modal__actions'>
-                <Button type='button' title='Отмена' className='modal__cancel-btn' isSecondary onClick={closeModal} />
-                <Button type='submit' title={editingPortfolio ? 'Сохранить' : 'Создать'} className='modal__submit-btn' />
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+            <div className='form-group'>
+              <label htmlFor='riskLevel'>Уровень риска</label>
+              <select id='riskLevel' name='riskLevel' value={formData.riskLevel} onChange={handleInputChange}>
+                <option value='Низкий'>Низкий</option>
+                <option value='Средний'>Средний</option>
+                <option value='Высокий'>Высокий</option>
+              </select>
+            </div>
+
+            <div className='modal__actions'>
+              <Button type='button' title='Отмена' className='modal__cancel-btn' isSecondary onClick={closeModal} />
+              <Button type='submit' title={editingPortfolio ? 'Сохранить' : 'Создать'} className='modal__submit-btn' />
+            </div>
+          </form>
+        </>
+      </Modal>
     </div>
   );
 };
