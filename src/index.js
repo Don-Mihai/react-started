@@ -9,6 +9,9 @@ import Wealth from './pages/Wealth/Wealth';
 import Profile from './pages/Profile/Profile';
 import Portfolio from './pages/Portfolio/Portfolio';
 
+import store from './redux/store';
+import { Provider } from 'react-redux';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
@@ -34,4 +37,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);

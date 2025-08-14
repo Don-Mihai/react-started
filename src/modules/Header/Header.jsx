@@ -8,12 +8,16 @@ import Avatar from '../../components/Avatar/Avatar';
 import { LOCAL_STORAGE_USER } from '../../services/utils';
 import { API_URL } from '../../services/api';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { decrement, increment } from '../../redux/Counter';
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getUser();
@@ -47,6 +51,8 @@ const Header = () => {
   return (
     <header className='header'>
       <div className='container header__container'>
+        <button onClick={() => dispatch(increment())}>+</button>
+        <button onClick={() => dispatch(decrement())}>-</button>
         <div className='header__left'>
           <Link to='/'>
             <img className='logo' src='images/logo.svg' alt='' />
