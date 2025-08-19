@@ -1,52 +1,32 @@
-import Header from '../../modules/Header/Header';
 import Button from '../../components/Button/Button';
 import Avatar from '../../components/Avatar/Avatar';
 import './styles.scss';
-import { LOCAL_STORAGE_USER } from '../../services/utils';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL } from '../../services/api';
-import { useSelector } from 'react-redux';
-
-const initialUser = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  birthday: '',
-  status: '',
-  investments: '',
-  portfolio: '',
-  profitability: '',
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser, deleteUser, fetchUser, updateUser } from '../../redux/User';
+import { initialUser } from '../../redux/User/utils';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(initialUser);
-  const [fetchedUser, setFetchedUser] = useState({});
+
   const [isPasswordEditing, setIsPasswordEditing] = useState(false);
   const { value } = useSelector((store) => store.counter);
+  const { user: fetchedUser } = useSelector((store) => store.user);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getUser();
+    dispatch(fetchUser());
   }, []);
 
-  const getUser = async () => {
-    try {
-      const userId = localStorage.getItem(LOCAL_STORAGE_USER);
-      if (userId) {
-        const user = (await axios.get(`${API_URL}/users/${userId}`)).data;
-        setFetchedUser(user);
-        setUser(user);
-      }
-    } catch (error) {
-      setUser({});
-    }
-  };
+  useEffect(() => {
+    setUser(fetchedUser);
+  }, [fetchedUser]);
 
   const handleLogout = () => {
-    localStorage.removeItem(LOCAL_STORAGE_USER);
+    dispatch(clearUser());
     navigate('/');
   };
 
@@ -55,14 +35,7 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
-    let payload = { ...user };
-
-    if (user.password !== fetchedUser.password) {
-      payload.updatedAtPassword = new Date().toISOString();
-    }
-    const response = await axios.put(`${API_URL}/users/${user.id}`, payload);
-    setFetchedUser(response.data);
-    setUser(response.data);
+    dispatch(updateUser(user));
     setIsPasswordEditing(false);
   };
 
@@ -71,13 +44,12 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    await axios.delete(`${API_URL}/users/${user.id}`);
+    await dispatch(deleteUser(user.id));
     handleLogout();
   };
 
   return (
     <div className='profile'>
-      <Header />
       {value}
       <div className='profile__container'>
         <div className='profile__header'>

@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../services/api";
-import { LOCAL_STORAGE_USER } from "../../../services/utils";
-import { validateEmail, validatePassword } from "../../../services/validate";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../../services/api';
+import { validateEmail, validatePassword } from '../../../services/validate';
+import { useDispatch } from 'react-redux';
+import { setUserId } from '../../../redux/User';
 
 const Login = ({ toggleModal, toggleLogin }) => {
-  const [authValues, setAuthValues] = useState({ email: "", password: "" });
-  const [authErrors, setAuthErrors] = useState({ email: "", password: "" });
+  const [authValues, setAuthValues] = useState({ email: '', password: '' });
+  const [authErrors, setAuthErrors] = useState({ email: '', password: '' });
+
+  const dispatch = useDispatch();
 
   const onChange = (event) => {
     const key = event.target.name;
     const value = event.target.value;
 
     setAuthValues({ ...authValues, [key]: value });
-    setAuthErrors({ ...authErrors, [key]: "" });
+    setAuthErrors({ ...authErrors, [key]: '' });
   };
 
   const handleAuth = async () => {
@@ -24,18 +27,14 @@ const Login = ({ toggleModal, toggleLogin }) => {
       return;
     }
 
-    const users = (
-      await axios.get(
-        `${API_URL}/users?email=${authValues.email}&password=${authValues.password}`
-      )
-    ).data;
+    const users = (await axios.get(`${API_URL}/users?email=${authValues.email}&password=${authValues.password}`)).data;
     const user = users[0];
 
     if (user?.id) {
-      localStorage.setItem(LOCAL_STORAGE_USER, user.id);
+      dispatch(setUserId(user.id));
       toggleModal();
     } else {
-      alert("Неверный email или пароль");
+      alert('Неверный email или пароль');
     }
   };
 
@@ -54,27 +53,23 @@ const Login = ({ toggleModal, toggleLogin }) => {
         onChange={onChange}
         onBlur={handleValidateEmail}
         value={authValues.email}
-        name="email"
-        type="text"
-        placeholder="Email"
-        className="auth-popup__input"
+        name='email'
+        type='text'
+        placeholder='Email'
+        className='auth-popup__input'
       />
-      {authErrors.email && (
-        <div className="auth-popup__error">{authErrors.email}</div>
-      )}
+      {authErrors.email && <div className='auth-popup__error'>{authErrors.email}</div>}
       <input
         onChange={onChange}
         onBlur={handleValidatePassword}
         value={authValues.password}
-        name="password"
-        type="text"
-        placeholder="Password"
-        className="auth-popup__input"
+        name='password'
+        type='text'
+        placeholder='Password'
+        className='auth-popup__input'
       />
-      {authErrors.password && (
-        <div className="auth-popup__error">{authErrors.password}</div>
-      )}
-      <div className="auth-popup__link" onClick={toggleLogin}>
+      {authErrors.password && <div className='auth-popup__error'>{authErrors.password}</div>}
+      <div className='auth-popup__link' onClick={toggleLogin}>
         Нет аккаунта? Зарегистрироваться
       </div>
       <button onClick={handleAuth}>Войти</button>

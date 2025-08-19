@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
-import Header from '../../modules/Header/Header';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import PortfolioItem from '../../modules/Portfolio/Portfolio';
@@ -121,8 +120,6 @@ const Portfolio = () => {
 
   return (
     <div className='portfolio-page'>
-      <Header />
-
       <div className='portfolio-container'>
         <div className='portfolio-header'>
           <div className='portfolio-header__content'>

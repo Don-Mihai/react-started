@@ -11,29 +11,36 @@ import Portfolio from './pages/Portfolio/Portfolio';
 
 import store from './redux/store';
 import { Provider } from 'react-redux';
+import Wrapper from './pages/Wrapper/Wrapper';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/about',
-    element: <About />,
-  },
-  {
-    path: '/wealth',
-    element: <Wealth />,
-  },
-  {
-    path: '/portfolio',
-    element: <Portfolio />,
-  },
-  {
-    path: '/profile/:userId',
-    element: <Profile />,
+    element: <Wrapper />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/about',
+        element: <About />,
+      },
+      {
+        path: '/wealth',
+        element: <Wealth />,
+      },
+      {
+        path: '/portfolio',
+        element: <Portfolio />,
+      },
+      {
+        path: '/profile/:userId',
+        element: <Profile />,
+      },
+    ],
   },
 ]);
 
