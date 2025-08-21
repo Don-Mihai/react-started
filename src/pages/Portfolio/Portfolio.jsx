@@ -3,29 +3,21 @@ import './styles.scss';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import PortfolioItem from '../../modules/Portfolio/Portfolio';
-import axios from 'axios';
+import { addPortfolio, deletePortfolio, fetchPortfolios, updatePortfolio } from '../../redux/Portfolio';
+import { useDispatch, useSelector } from 'react-redux';
+import { initialPortfolio } from '../../redux/Portfolio/utils';
 
 const Portfolio = () => {
-  const [portfolios, setPortfolios] = useState([]);
+  const { portfolios } = useSelector((store) => store.portfolio);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPortfolio, setEditingPortfolio] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    totalValue: '',
-    currency: 'USD',
-    riskLevel: 'Средний',
-  });
+  const [formData, setFormData] = useState(initialPortfolio);
 
-  const fetchPortfolios = async () => {
-    const fetchedPortfolios = (await axios.get('http://localhost:8000/portfolios')).data;
-
-    setPortfolios(fetchedPortfolios);
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchPortfolios();
+    dispatch(fetchPortfolios());
   }, []);
 
   const openModal = (portfolio = null) => {
@@ -40,13 +32,7 @@ const Portfolio = () => {
       });
     } else {
       setEditingPortfolio(null);
-      setFormData({
-        name: '',
-        description: '',
-        totalValue: '',
-        currency: 'USD',
-        riskLevel: 'Средний',
-      });
+      setFormData(initialPortfolio);
     }
     setIsModalOpen(true);
   };
@@ -54,13 +40,7 @@ const Portfolio = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingPortfolio(null);
-    setFormData({
-      name: '',
-      description: '',
-      totalValue: '',
-      currency: 'USD',
-      riskLevel: 'Средний',
-    });
+    setFormData(initialPortfolio);
   };
 
   const handleInputChange = (e) => {
@@ -70,38 +50,21 @@ const Portfolio = () => {
     });
   };
 
+  // TODO: разделить логику редактирования сущетсвующего и нового портфеля
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (editingPortfolio) {
       // Обновление существующего портфеля
       const updatedPortfolio = {
+        ...editingPortfolio,
         ...formData,
-        createdAt: editingPortfolio.createdAt,
         totalValue: parseFloat(formData.totalValue),
       };
 
-      try {
-        const updatedPortfolioResponse = (await axios.put(`http://localhost:8000/portfolios/${editingPortfolio.id}`, updatedPortfolio)).data;
-        setPortfolios(portfolios.map((p) => (p.id === editingPortfolio.id ? updatedPortfolioResponse : p)));
-      } catch (error) {
-        console.error('Ошибка при обновлении портфеля:', error);
-      }
+      dispatch(updatePortfolio(updatedPortfolio));
     } else {
-      // Создание нового портфеля
-      const newPortfolio = {
-        ...formData,
-        totalValue: parseFloat(formData.totalValue),
-        createdAt: new Date().toISOString().split('T')[0],
-        assets: [],
-      };
-
-      try {
-        const addedPortfolio = (await axios.post('http://localhost:8000/portfolios', newPortfolio)).data;
-        setPortfolios([...portfolios, addedPortfolio]);
-      } catch (error) {
-        console.error('Ошибка при добавлении портфеля:', error);
-      }
+      dispatch(addPortfolio(formData));
     }
 
     closeModal();
@@ -109,12 +72,7 @@ const Portfolio = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Вы уверены, что хотите удалить этот портфель?')) {
-      try {
-        await axios.delete(`http://localhost:8000/portfolios/${id}`);
-        setPortfolios(portfolios.filter((p) => p.id !== id));
-      } catch (error) {
-        console.error('Ошибка при удалении портфеля:', error);
-      }
+      dispatch(deletePortfolio(id));
     }
   };
 

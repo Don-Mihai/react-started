@@ -10,6 +10,10 @@ import { API_URL } from '../../services/api';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/Counter';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import TextField from '@mui/material/TextField';
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,8 +55,14 @@ const Header = () => {
   return (
     <header className='header'>
       <div className='container header__container'>
-        <button onClick={() => dispatch(increment())}>+</button>
-        <button onClick={() => dispatch(decrement())}>-</button>
+        <IconButton color='success' onClick={() => dispatch(increment())}>
+          <AddIcon />
+        </IconButton>
+        <IconButton onClick={() => dispatch(decrement())}>
+          <RemoveIcon />
+        </IconButton>
+        <TextField label='Age' variant='filled' />
+
         <div className='header__left'>
           <Link to='/'>
             <img className='logo' src='images/logo.svg' alt='' />
